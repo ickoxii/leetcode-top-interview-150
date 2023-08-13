@@ -17,48 +17,53 @@
 // a b c d e f g h i j k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z
 // 'a' == 97
 
+class TrieNode {
+public:
+    bool is_end;
+    vector<TrieNode*> children;
+    
+    TrieNode() : is_end(false), children(26, nullptr) {}
+};
+
 class Trie {
 private:
-    Trie *children[26]; // array of 26 pointers to TrieNodes
-    bool isWord;            // true
-
+    TrieNode* root;
+    
 public:
     Trie() {
-        isWord = false;
+        root = new TrieNode();
     }
-
+    
     void insert(string word) {
-        Trie *iter;
-        
-        for (int i = 0; i < word.size(); ++i) {
-            iter->children[word[i]-'a']
+        TrieNode* node = root;
+        for (char c : word) {
+            if (!node->children[c - 'a']) {
+                node->children[c - 'a'] = new TrieNode();
+            }
+            node = node->children[c - 'a'];
         }
+        node->is_end = true;
     }
-
+    
     bool search(string word) {
-        int size = word.size();
-        Trie *iter;
-
-        for (int i = 0; i < size; ++i) {
-            iter = iter->children[word[i]-'a'];
-            if (!iter->isWord)
+        TrieNode* node = root;
+        for (char c : word) {
+            if (!node->children[c - 'a']) {
                 return false;
+            }
+            node = node->children[c - 'a'];
         }
-        
-        // might need check here to see if additional characters added?
-        return true;
+        return node->is_end;
     }
-
+    
     bool startsWith(string prefix) {
-        int size = prefix.size();
-        Trie *iter;
-
-        for (int i = 0; i < size; ++i) {
-            iter = iter->children[prefix[i]-'a'];
-            if (!iter->isWord)
+        TrieNode* node = root;
+        for (char c : prefix) {
+            if (!node->children[c - 'a']) {
                 return false;
+            }
+            node = node->children[c - 'a'];
         }
-
         return true;
     }
 };
