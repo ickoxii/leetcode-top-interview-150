@@ -35,13 +35,18 @@
   * Return the least number of moves required to reach the square n^2.
   * If it is not possible to reach the square, return -1. */
 
+#include <vector>
+#include <random>
+
+using namespace std;
+
 class Solution {
 public:
     /* snakesAndLadders
      *
      * This problem finds the minimum number of moves to reach
      * the end of the board. */
-    int snakesAndLadders(vector<vector<int>>& board) {
+    int snakesAndLadders(vector<vector<int> >& board) {
         
     }
 };
