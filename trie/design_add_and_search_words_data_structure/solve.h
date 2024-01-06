@@ -15,8 +15,16 @@
   *     matches word or false otherwise. word may contain dots '.' where
   *     dots can be matched with any letter.
   */
+#include <string>
+using namespace std;
+
+struct Node {
+    bool isWord;
+    char letters[26];
+};
 
 class WordDictionary {
+    
 public:
     WordDictionary() {
 
@@ -27,6 +35,13 @@ public:
     }
 
     bool search(string word) {
+        return searchHelper(word, 0);
+    }
+
+    /*
+       recursive helper function for searching for word
+    */
+    bool searchHelper(string word, int ndx) {
 
     }
 };
